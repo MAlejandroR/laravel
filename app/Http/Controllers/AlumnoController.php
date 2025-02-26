@@ -12,8 +12,8 @@ class AlumnoController extends Controller
      */
     public function index()
     {
-        $alumnos = Alumno::all();
-        return view("alumno.index",["alumnos" => $alumnos]);
+        $alumnos = Alumno::all()->sortBy("nombre");
+        return view("alumnos.index",["alumnos" => $alumnos]);
 
         //
     }
@@ -23,7 +23,16 @@ class AlumnoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validar
+        //recoger los datos
+        $datos = $request->input();
+
+        $alumno = new Alumno($datos);
+        $alumno->save();
+        return redirect(route("alumnos.index"));
+
+         // $nombre = $_POST['nombre'];
+        //guardarlo en la bd
     }
 
     /**
@@ -31,6 +40,11 @@ class AlumnoController extends Controller
      */
     public function show(string $id)
     {
+        //
+    }
+public function create()
+    {
+        return view("alumnos.create");
         //
     }
 
@@ -45,8 +59,11 @@ class AlumnoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Alumno $alumno)
     {
+        $alumno->delete();
+        return redirect(route("alumnos.index"));
+
         //
     }
 }
