@@ -5,10 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Alumno extends Model
+class Proyecto extends Model
 {
-    /** @use HasFactory<\Database\Factories\AlumnoFactory> */
     use HasFactory;
-
-
+    //
 }

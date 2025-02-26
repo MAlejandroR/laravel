@@ -8,10 +8,12 @@ Route::get('/', function () {
     return view('main');
 })->name("main");
 
-Route::get("/alumnos",[AlumnoController::class, "index"])
-    ->name("alumnos")
-    ->middleware("auth");
-;
+Route::resource("alumnos", AlumnoController::class);
+
+//Route::get("/alumnos",[AlumnoController::class, "index"])
+//    ->name("alumnos")
+//    ->middleware("auth");
+//;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
