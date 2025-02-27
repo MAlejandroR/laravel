@@ -1,7 +1,27 @@
 <x-layouts.layout>
     <div class="max-h-full overflow-x-auto">
+        @if (session()->has("status"))
+            <div role="alert" class="alert alert-success">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6 shrink-0 stroke-current"
+                    fill="none"
+                    viewBox="0 0 24 24">
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{{session()->get("status")}}</span>
+            </div>
 
-        <a class="btn btn-success" href= {{route("alumnos.create")}}>Crear Alumno</a>
+
+
+
+
+       @endif
+        <a class="btn btn-sm m-3  btn-warning" href= {{route("alumnos.create")}}>Crear Alumno</a>
 
         <table class="table table-xs table-pin-rows">
             <thead>
@@ -19,6 +39,7 @@
                     <td>{{$alumno->email}}</td>
                     <!--Editar-->
                     <td>
+                        <a href="{{route("alumnos.edit",$alumno->id)}}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                              class="size-6 hover:bg-blue-600 hover:text-white hover:cursor-pointer">
                             <path
@@ -26,13 +47,14 @@
                             <path
                                 d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z"/>
                         </svg>
+                        </a>
 
                     </td>
                     <td>
-                        <form action="{{route("alumnos.destroy",$alumno->id)}}" method="POST">
+                        <form onsubmit=event.preventDefault() id="formulario{{$alumno->id}}" action="{{route("alumnos.destroy",$alumno->id)}}" method="POST">
                             @method("DELETE")
                             @csrf
-                            <button type="submit">
+                            <button onclick=confirmarDelete({{$alumno->id}})>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                      class="size-6 hover:bg-red-700 hover:text-white hover:cursor-pointer">
                                     <path
@@ -41,7 +63,7 @@
                                           d="m3.087 9 .54 9.176A3 3 0 0 0 6.62 21h10.757a3 3 0 0 0 2.995-2.824L20.913 9H3.087Zm6.133 2.845a.75.75 0 0 1 1.06 0l1.72 1.72 1.72-1.72a.75.75 0 1 1 1.06 1.06l-1.72 1.72 1.72 1.72a.75.75 0 1 1-1.06 1.06L12 15.685l-1.72 1.72a.75.75 0 1 1-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 0 1 0-1.06Z"
                                           clip-rule="evenodd"/>
                                 </svg>
-                            </button>-
+                            </button>
                         </form>
 
                     </td>
@@ -50,6 +72,22 @@
             @endforeach
         </table>
     </div>
+    <script>
+        function confirmarDelete(id){
+            swal({
+                title:"Confirmar borrado",
+                text :"Esta acción es definitiva no recuperable",
+                icon:"warning",
+                buttons: true,
+            }).then( (ok)=> {
+                    if (ok) {
+                        let formulario = document.getElementById("formulario" + id);
+                        formulario.submit();
+                    }
+                }
+            );
+        }
+    </script>
 </x-layouts.layout>
 
 

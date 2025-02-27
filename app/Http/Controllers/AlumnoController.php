@@ -29,6 +29,7 @@ class AlumnoController extends Controller
 
         $alumno = new Alumno($datos);
         $alumno->save();
+        session()->flash("status","Se ha creado el alumno $alumno->nombre");
         return redirect(route("alumnos.index"));
 
          // $nombre = $_POST['nombre'];
@@ -55,6 +56,11 @@ public function create()
     {
         //
     }
+    public function edit(Alumno $alumno)
+    {
+        return view("alumnos.create",["alumno" => $alumno]);
+        //
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -62,6 +68,7 @@ public function create()
     public function destroy(Alumno $alumno)
     {
         $alumno->delete();
+        session()->flash("status","Se ha borrado $alumno->nombre");
         return redirect(route("alumnos.index"));
 
         //
