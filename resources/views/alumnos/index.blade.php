@@ -73,19 +73,23 @@
         </table>
     </div>
     <script>
-        function confirmarDelete(id){
+        function confirmarDelete (id){
             swal({
-                title:"Confirmar borrado",
-                text :"Esta acción es definitiva no recuperable",
+                title: "Confimar borrado",
+                text: "Esta acción es irreversible",
                 icon:"warning",
-                buttons: true,
-            }).then( (ok)=> {
-                    if (ok) {
-                        let formulario = document.getElementById("formulario" + id);
-                        formulario.submit();
-                    }
-                }
-            );
+                buttons:true
+            }).then(
+                 (ok)=>{
+                     if (ok){
+                         const formulario =document.getElementById("formulario"+id);
+                         formulario.submit();
+
+                     }
+
+            }
+
+            )
         }
     </script>
 </x-layouts.layout>
