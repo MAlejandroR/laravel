@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAlumnoRequest;
 use App\Models\Alumno;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class AlumnoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAlumnoRequest $request)
     {
         //validar
         //recoger los datos

@@ -14,6 +14,6 @@ class AlumnoSeeder extends Seeder
     public function run(): void
     {
         //
- Alumno::factory()->count(5)->create();
+ Alumno::factory()->count(50)->create();
     }
 }
