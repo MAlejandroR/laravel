@@ -8,7 +8,7 @@ Route::get('/', function () {
     return view('main');
 })->name("main");
 
-Route::resource("alumnos", AlumnoController::class);
+Route::resource("alumnos", AlumnoController::class)->middleware('auth');
 
 //Route::get("/alumnos",[AlumnoController::class, "index"])
 //    ->name("alumnos")
@@ -27,5 +27,6 @@ Route::middleware('auth')->group(function () {
 
 
 Route::view("about", "about");
+Route::post("aulumo", fn()=>view("about"))->middleware("peope");
 Route::view("noticias", "noticias");
 require __DIR__.'/auth.php';

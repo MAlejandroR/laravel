@@ -22,15 +22,11 @@ class StoreAlumnoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "nombre"=>"required|string|min:3|max:10",
-            "dni"=>[
-                "required",
-                "string",
-                "size:9",
-                "unique:alumnos,dni",
-                "regex:/^[0-9]{8}[A-Z]$/",
-            ],
-            "email"=>"required|email|unique:alumnos,email",
+            "data.attributes.nombre" => "required|string|max:20",
+            "data.attributes.dni" => "required|string|unique:alumnos,dni",
+            "data.attributes.email" => "required|email|unique:alumnos,email"
+            //
+
 
         ];
     }
